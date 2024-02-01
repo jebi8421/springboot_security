@@ -22,7 +22,7 @@
   <div class="form-group m-2">
     <div>${board.content }</div>
   </div>
-  <br/>
+  <hr/>
   <div class="card">
   	<div class="card-body"><textarea class="form-control" id="content" rows="1"></textarea></div>
   	<div class="card-footer"><button id="reply-save" class="btn btn-primary" style="float:right;">댓글등록</button></div>
@@ -31,7 +31,13 @@
   <div class="card">
   	<div class="card-header">댓글리스트</div>
   	<ul class="list-group">
-      <li class="list-group-item">First Item</li>
+      <li class="list-group-item d-flex justify-content-between">
+      	<div>댓글 내용</div>
+      	<div class="d-flex">
+      		<div>작성자 : 아무개</div>&nbsp;
+      		<button class="badge">삭제</button>
+      	</div>
+      </li>
   	</ul>
   </div>
   <br/>
