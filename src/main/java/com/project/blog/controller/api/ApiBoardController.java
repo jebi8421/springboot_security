@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.blog.config.auth.PrincipalDetail;
 import com.project.blog.dto.ResponseDto;
 import com.project.blog.model.Board;
+import com.project.blog.model.Reply;
 import com.project.blog.model.User;
 import com.project.blog.repository.BoardRepository;
 import com.project.blog.service.BoardService;
@@ -47,6 +48,21 @@ public class ApiBoardController {
 		}
 		
 		int result = boardService.delete(id);
+		
+		return new ResponseDto<Integer>(HttpStatus.OK, result);
+	}
+	
+	@PostMapping(value="/api/board/{id}/reply")
+	public ResponseDto<Integer> replySave(@PathVariable int id, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
+		
+		int result = boardService.replySave(id, reply, principal.getUser());
+		
+		return new ResponseDto<Integer>(HttpStatus.OK, result);
+	}
+	
+	@DeleteMapping(value="/api/board/{id}/reply")
+	public ResponseDto<Integer> delete(@PathVariable int id) {
+		int result = boardService.deleteReply(id);
 		
 		return new ResponseDto<Integer>(HttpStatus.OK, result);
 	}

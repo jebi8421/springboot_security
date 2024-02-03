@@ -17,9 +17,6 @@ import com.project.blog.repository.UserRepository;
 public class UserService {
 	
 	@Autowired
-	private AuthenticationManager authenticationManager;
-
-	@Autowired
 	private UserRepository userRepository;
 	
 	@Autowired
@@ -59,13 +56,6 @@ public class UserService {
 		
 		orgUser.setPassword(encoder.encode(user.getPassword()));
 		orgUser.setEmail(user.getEmail());
-		
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
-		System.out.println("principal : "+authentication.getName());
-		System.out.println("principal : "+authentication.getAuthorities());
-		System.out.println("principal : "+authentication.getDetails());
 		
 		return 1;
 	}

@@ -25,15 +25,13 @@ public class CustomDetailUserService implements UserDetailsService{
 		User user = userRepository.findByUsername(username).orElseThrow(()->{
 			return new UsernameNotFoundException("사용자를 찾을수 없습니다.");
 		});
-		System.out.println("username : " + username);
-		System.out.println(user.getEmail());
-		System.out.println(user.getPassword());
-		System.out.println(user.getUsername());
-		if(user != null) {
+		
+		if(user == null) {
+			return null;
+		} else {
 			return new PrincipalDetail(user);
 		}
 		
-		return null;
 	} 
 	
 }

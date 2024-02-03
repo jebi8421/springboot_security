@@ -2,6 +2,7 @@ package com.project.blog.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,6 +26,9 @@ public class ApiUserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
 	@PostMapping(value="/auth/joinProc")
 	public ResponseDto<Integer> joinProc(@RequestBody User user) {
 		
@@ -44,6 +48,9 @@ public class ApiUserController {
 										@AuthenticationPrincipal PrincipalDetail principal,
 										HttpSession session) {
 		int result = userService.update(id, user);
+		
+		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return new ResponseDto<Integer>(HttpStatus.OK, result);
 	}

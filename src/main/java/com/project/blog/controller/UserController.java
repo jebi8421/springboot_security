@@ -99,7 +99,7 @@ public class UserController {
 		ResponseEntity<String> kakaoUserInfo = kakaoUserInfo(oauthToken);
 		System.out.println(kakaoUserInfo);
 		
-		return "index";
+		return "redirect:/board";
 	}
 	
 	public ResponseEntity<String> kakaoUserInfo(OAuthToken oauthToken) {

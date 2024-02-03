@@ -2,6 +2,8 @@
 <%@ include file="../layout/header.jsp" %>
 
 <div class="container">
+  <form>
+  <input type="hidden" id="boardId" value="${board.id }" />
   <button class="btn btn-secondary" onclick="history.back();">돌아가기</button>
   <c:if test="${principal.username eq board.user.username }">
   <button id="btn-update-form" class="btn btn-warning">수정</button>
@@ -25,22 +27,27 @@
   <hr/>
   <div class="card">
   	<div class="card-body"><textarea class="form-control" id="content" rows="1"></textarea></div>
-  	<div class="card-footer"><button id="reply-save" class="btn btn-primary" style="float:right;">댓글등록</button></div>
+  	<div class="card-footer"><button type="button" id="reply-save" class="btn btn-primary" style="float:right;">댓글등록</button></div>
   </div>
   <br/>
   <div class="card">
   	<div class="card-header">댓글리스트</div>
-  	<ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between">
-      	<div>댓글 내용</div>
+  	<ul id="reply--box" class="list-group">
+  	  <c:forEach var="reply" items="${board.replys }">
+      <li id="reply--${reply.id }" class="list-group-item d-flex justify-content-between">
+      	<div>${reply.content }</div>
       	<div class="d-flex">
-      		<div>작성자 : 아무개</div>&nbsp;
-      		<button class="badge">삭제</button>
+      		<div class="font-italic">작성자 : ${reply.user.username }</div>&nbsp;
+      		<c:if test="${principal.username eq reply.user.username }">
+      		<button type="button" data-id="${reply.id }" class="badge reply-del">삭제</button>
+      		</c:if>
       	</div>
       </li>
+      </c:forEach>
   	</ul>
   </div>
   <br/>
+  </form>
 </div>
 
 <script src="/js/reply/reply.js"></script>

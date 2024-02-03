@@ -43,8 +43,8 @@ public class SecurityConfig {
 					.disable()
 			)
 			.authorizeHttpRequests(request -> request
-					.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-					.requestMatchers("/auth/**","/css/**","/js/**","/images/**").permitAll()
+					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+					.requestMatchers("/auth/**","/css/**","/js/**","/images/**","/test/**").permitAll()
 					.anyRequest().authenticated()
 			)
 			.formLogin(login->login
